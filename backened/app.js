@@ -18,9 +18,17 @@ const URI=process.env.mongooseURI;
 // const URI="mongodb+srv://mehulagarwal0001:mehul123@cluster0.wuv1v.mongodb.net/NoteDrive?retryWrites=true&w=majority";
 ConnectToMongo(URI);
 
-app.get('/',(req,res)=>{
-res.send("Hello Mehul");
-})
+
+
+if(process.env.NODE_ENV === 'production') {
+    // set static folder
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+  }
+
+
 
 
 app.listen(process.env.PORT,()=>{

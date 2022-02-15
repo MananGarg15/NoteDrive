@@ -2,6 +2,7 @@ const express= require('express');
 const dotenv=require('dotenv');
 const cors=require('cors');
 const mongoose=require('mongoose');
+const path = require("path")
 const ConnectToMongo=require('./mongoose');
 dotenv.config();
 
@@ -19,6 +20,15 @@ const URI=process.env.mongooseURI;
 ConnectToMongo(URI);
 
 
+app.get("/mehul",(req,res)=>{
+
+    res.send("hiii")
+})
+
+// app.use(express.static('client/build'));
+//     app.get('*', (req, res) => {
+//       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//     });
 
 if(process.env.NODE_ENV === 'production') {
     // set static folder
@@ -29,8 +39,8 @@ if(process.env.NODE_ENV === 'production') {
   }
 
 
+const port= process.env.PORT || 5000;
 
-
-app.listen(process.env.PORT,()=>{
+app.listen(port,()=>{
     console.log("Backened running");
 })
